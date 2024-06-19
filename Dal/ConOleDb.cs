@@ -102,6 +102,27 @@ namespace Dal
             }
         }
 
+        public void ExecuteNQ(OleDbCommand cmd)
+        {
+            try
+            {
+                OpenConnection();
+                if(cmd.Connection is null)
+                {
+                    cmd.Connection = myDBConnection;
+                }
+                cmd.ExecuteNonQuery();
+            }
+            catch(Exception )
+            {
+                throw;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
         public void ExecutaNQ(string sql)
         {
             try
