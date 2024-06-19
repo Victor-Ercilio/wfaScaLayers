@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bll
 {
-    internal class DmlEstados
+    public class DmlEstados
     {
         private static OleDbCommand _selectAll;
         private static OleDbCommand _selectSome;
