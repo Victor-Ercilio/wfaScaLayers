@@ -120,7 +120,25 @@ namespace Bll
         {
             try
             {
+                ConOleDb db = new ConOleDb();
 
+                if(_create == null)
+                {
+                    _create = new OleDbCommand();
+                    _create.CommandText =
+                        @"
+                            INSERT INTO estados 
+                                (ufe_sgl, ufe_nom)
+                            VALUES
+                                (@uf, @nome)";
+                    _create.Parameters.Add("@uf", OleDbType.VarChar, 2);
+                    _create.Parameters.Add("@nome", OleDbType.VarChar, 50);
+                }
+
+                _create.Parameters["@uf"].Value = estado.Sigla;
+                _create.Parameters["@nome"].Value = estado.Nome;
+                
+                db.ExecuteNQ(_create);
             }
             catch (Exception)
             {
