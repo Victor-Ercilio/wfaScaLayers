@@ -132,8 +132,8 @@ namespace Bll
                     _create.Parameters.Add("@nome", OleDbType.VarChar, 50);
                 }
 
-                _create.Parameters["@uf"].Value = estado.Sigla;
-                _create.Parameters["@nome"].Value = estado.Nome;
+                _create.Parameters["@uf"].Value = $"'{estado.Sigla}'";
+                _create.Parameters["@nome"].Value = $"'{estado.Nome}'";
                 
                 db.ExecuteNQ(_create);
             }
