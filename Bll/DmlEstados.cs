@@ -91,7 +91,7 @@ namespace Bll
                         FROM    estados
                         WHERE ufe_sgl LIKE @uf AND ufe_nom LIKE @nome";
                     _selectFirst.Parameters.Add("@uf", OleDbType.VarChar, 2);
-                    _selectFirst.Parameters.Add("@nome", OleDbType.VarChar, 70);
+                    _selectFirst.Parameters.Add("@nome", OleDbType.VarChar, 50);
                 }
                 _selectFirst.Parameters["@uf"].Value = $"'{uf}%'";
                 _selectFirst.Parameters["@nome"].Value = $"'%{nome}%'";
