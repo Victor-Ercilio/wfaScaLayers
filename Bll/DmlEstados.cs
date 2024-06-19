@@ -19,10 +19,8 @@ namespace Bll
         private static OleDbCommand _update;
         private static OleDbCommand _delete;
 
-        public DataTable All
+        public DataTable All()
         {
-            get
-            {
                 try
                 {
                     ConOleDb db = new ConOleDb();
@@ -43,7 +41,6 @@ namespace Bll
                     throw;
                 }
             }
-        }
 
         public DataTable SelectAnyWith(string uf = "", string nome= "")
         {
