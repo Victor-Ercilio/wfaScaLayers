@@ -21,26 +21,26 @@ namespace Bll
 
         public DataTable All()
         {
-                try
+            try
+            {
+                ConOleDb db = new ConOleDb();
+                if(_selectAll == null)
                 {
-                    ConOleDb db = new ConOleDb();
-                    if(_selectAll == null)
-                    {
-                        _selectAll = new OleDbCommand();
-                        _selectAll.CommandText =
-                            @"
-                            SELECT  ufe_sgl AS UF,
-                                    ufe_nom AS Nome
-                            FROM    estados";
-                    }
+                    _selectAll = new OleDbCommand();
+                    _selectAll.CommandText =
+                        @"
+                        SELECT  ufe_sgl AS UF,
+                                ufe_nom AS Nome
+                        FROM    estados";
+                }
 
-                    return db.ReturnDataTable(_selectAll);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                return db.ReturnDataTable(_selectAll);
             }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         public DataTable SelectAnyWith(string uf = "", string nome= "")
         {
@@ -157,7 +157,7 @@ namespace Bll
                             DELETE FROM estados 
                             WHERE ufe_sgl = @uf";
                     _delete.Parameters.Add("@uf", OleDbType.VarChar, 2);
-            }
+                }
 
                 _delete.Parameters["@uf"].Value = $"'{estado.Sigla}'";
 
