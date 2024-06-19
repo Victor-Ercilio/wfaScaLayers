@@ -29,7 +29,7 @@ namespace Bll
                     _selectAll = new OleDbCommand();
                     _selectAll.CommandText =
                         @"
-                        SELECT  ufe_sgl AS UF,
+                        SELECT  ufe_sig AS UF,
                                 ufe_nom AS Nome
                         FROM    estados";
                 }
@@ -53,7 +53,7 @@ namespace Bll
                     _selectSome = new OleDbCommand();
                     _selectSome.CommandText =
                         @"
-                        SELECT  ufe_sgl AS UF,
+                        SELECT  ufe_sig AS UF,
                                 ufe_nom AS Nome
                         FROM    estados
                         WHERE ufe_sgl LIKE @uf OR ufe_nom LIKE @nome";
@@ -83,7 +83,7 @@ namespace Bll
                     _selectFirst.CommandText =
                         @"
                         SELECT  TOP 1
-                                ufe_sgl AS UF,
+                                ufe_sig AS UF,
                                 ufe_nom AS Nome
                         FROM    estados
                         WHERE ufe_sgl LIKE @uf AND ufe_nom LIKE @nome";
@@ -125,7 +125,7 @@ namespace Bll
                     _create.CommandText =
                         @"
                             INSERT INTO estados 
-                                (ufe_sgl, ufe_nom)
+                                (ufe_sig, ufe_nom)
                             VALUES
                                 (@uf, @nome)";
                     _create.Parameters.Add("@uf", OleDbType.VarChar, 2);
@@ -155,7 +155,7 @@ namespace Bll
                     _delete.CommandText =
                         @"
                             DELETE FROM estados 
-                            WHERE ufe_sgl = @uf";
+                            WHERE ufe_sig = @uf";
                     _delete.Parameters.Add("@uf", OleDbType.VarChar, 2);
                 }
 
@@ -182,9 +182,9 @@ namespace Bll
                         @"
                             UPDATE estados
                             SET
-                                ufe_sgl = @new_uf, ufe_nom = @nome
+                                ufe_sig = @new_uf, ufe_nom = @nome
                             WHERE
-                                ufe_nom = @old_uf";
+                                ufe_sig = @old_uf";
                     _update.Parameters.Add("@old_uf", OleDbType.VarChar, 2);
                     _update.Parameters.Add("@new_uf", OleDbType.VarChar, 2);
                     _update.Parameters.Add("@nome", OleDbType.VarChar, 50);
