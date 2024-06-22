@@ -16,7 +16,7 @@ namespace Bll
         private static OleDbParameter _nome;
 
         private static OleDbCommand _selectAll;
-        private static OleDbCommand _selectSome;
+        private static OleDbCommand _selectAny;
         private static OleDbCommand _selectFirst;
 
         private static OleDbCommand _create;
@@ -29,8 +29,7 @@ namespace Bll
             ParameterNome = new OleDbParameter();
 
             SelectAllCmd = new OleDbCommand();
-            _selectSome = _selectSome ?? new OleDbCommand();
-            _selectFirst = _selectFirst ?? new OleDbCommand();
+            SelectAnyCmd = new OleDbCommand();
 
             CreateCmd = new OleDbCommand();
             UpdateCmd = new OleDbCommand();
