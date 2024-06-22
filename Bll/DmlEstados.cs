@@ -190,8 +190,8 @@ namespace Bll
             {
                 ConOleDb db = new ConOleDb();
 
-                ParameterUFValue = $"{uf}%";
-                ParameterNomeValue = $"%{nome}%";
+                SelectAnyCmd.Parameters[p_uf].Value = $"'{uf}%'";
+                SelectAnyCmd.Parameters[p_nome].Value = $"'%{nome}%'";
                 
                 return db.ReturnDataTable(SelectAnyCmd);
             }
@@ -207,8 +207,8 @@ namespace Bll
             {
                 ConOleDb db = new ConOleDb();
 
-                ParameterUFValue = estado.Sigla;
-                ParameterNomeValue = estado.Nome;
+                CreateCmd.Parameters[p_uf].Value = $"'{estado.Sigla}'";
+                CreateCmd.Parameters[p_nome].Value = $"'{estado.Nome}'";
 
                 db.ExecuteNQ(CreateCmd);
             }
@@ -224,7 +224,7 @@ namespace Bll
             {
                 ConOleDb db = new ConOleDb();
 
-                ParameterUFValue = estado.Sigla;
+                DeleteCmd.Parameters[p_uf].Value = $"'{estado.Sigla}'";
 
                 db.ExecuteNQ(DeleteCmd);
             }
@@ -240,9 +240,9 @@ namespace Bll
             {
                 ConOleDb db = new ConOleDb();
 
-                ParameterUFValue = old_uf.Sigla;
-                ParameterNewUFValue = new_uf.Sigla;
-                ParameterNomeValue = new_uf.Nome;
+                UpdateCmd.Parameters[p_uf].Value = $"'{old_uf.Sigla}'";
+                UpdateCmd.Parameters[p_nome].Value = $"'{new_uf.Sigla}'";
+                UpdateCmd.Parameters[p_new_uf].Value = $"'{new_uf.Nome}'";
 
                 db.ExecuteNQ(UpdateCmd);
             }
