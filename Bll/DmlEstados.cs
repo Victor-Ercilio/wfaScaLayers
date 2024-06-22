@@ -11,9 +11,9 @@ namespace Bll
 {
     public class DmlEstados
     {
-        private static OleDbParameter _uf;
-        private static OleDbParameter _new_uf;
-        private static OleDbParameter _nome;
+        private const string p_uf = "@uf";
+        private const string p_new_uf = "@new_uf";
+        private const string p_nome = "@nome";
 
         private static OleDbCommand _selectAll;
         private static OleDbCommand _selectAny;
