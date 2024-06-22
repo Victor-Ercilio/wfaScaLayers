@@ -258,7 +258,7 @@ namespace Bll
             }
         }
 
-        public void Add(Estado estado)
+        public static void Add(Estado estado)
         {
             try
             {
@@ -288,7 +288,7 @@ namespace Bll
             }
         }
 
-        public void Del(Estado estado)
+        public static void Del(Estado estado)
         {
             try
             {
@@ -314,7 +314,7 @@ namespace Bll
             }
         }
 
-        public void Update(string uf, Estado estado)
+        public static void Update(Estado old_uf, Estado new_uf)
         {
             try
             {
