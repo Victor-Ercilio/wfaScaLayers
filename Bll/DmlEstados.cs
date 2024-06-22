@@ -124,6 +124,64 @@ namespace Bll
                                 ufe_nom AS Nome
                         FROM    estados";
                 }
+        }
+
+        private static OleDbCommand DeleteCmd
+        {
+            get
+            {
+                return (_delete is null) ? DeleteCmd = new OleDbCommand() : _delete;
+            }
+            set
+            {
+                _delete = value;
+                _delete.CommandText =
+                    @"
+                    DELETE FROM estados
+                    WHERE ufe_sgl = @uf";
+                _delete.Parameters.Add(ParameterUF);
+            }
+        }
+
+        private static OleDbCommand AddCmd
+        {
+            get
+            {
+                return (_create is null) ? AddCmd = new OleDbCommand() : _create;
+            }
+            set
+            {
+                _create = value;
+                _create.CommandText =
+                    @"
+                    INSERT INTO estados (ufe_sig, ufe_nom)
+                    VALUES (@uf, @nome)";
+                _create.Parameters.Add(ParameterUF);
+                _create.Parameters.Add(ParameterNome);
+            }
+        }
+
+        private static OleDbCommand UpdateCmd
+        {
+            get
+            {
+                return (_update is null) ? UpdateCmd = new OleDbCommand() : _update;
+            }
+            set
+            {
+                _update = value;
+                _update.CommandText =
+                     @"
+                        UPDATE estados
+                        SET
+                            ufe_sig = @new_uf, ufe_nom = @nome
+                        WHERE
+                            ufe_sig = @uf";
+                _update.Parameters.Add(ParameterUF);
+                _update.Parameters.Add(ParameterNome);
+                _update.Parameters.Add(ParameterNewUF);
+            }
+        }
 
                 return db.ReturnDataTable(_selectAll);
             }
