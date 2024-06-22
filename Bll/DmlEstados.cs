@@ -17,7 +17,6 @@ namespace Bll
 
         private static OleDbCommand _selectAll;
         private static OleDbCommand _selectAny;
-        private static OleDbCommand _selectFirst;
 
         private static OleDbCommand _create;
         private static OleDbCommand _update;
