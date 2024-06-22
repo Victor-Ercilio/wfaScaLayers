@@ -233,18 +233,6 @@ namespace Bll
             }
         }
 
-        public string NomeBy(string uf)
-        {
-            try
-            {
-                return SelectFirst(uf: uf).Columns["Nome"].ToString();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public static void Add(Estado estado)
         {
             try
@@ -295,7 +283,6 @@ namespace Bll
                 throw;
             }
         }
-
 
     }
 }
