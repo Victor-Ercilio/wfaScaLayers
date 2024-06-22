@@ -183,7 +183,12 @@ namespace Bll
             }
         }
 
-                return db.ReturnDataTable(_selectAll);
+        public static DataTable All()
+        {
+            try
+            {
+                ConOleDb db = new ConOleDb();
+                return db.ReturnDataTable(SelectAllCmd);
             }
             catch (Exception)
             {
