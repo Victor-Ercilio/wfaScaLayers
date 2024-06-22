@@ -32,50 +32,35 @@ namespace Bll
             DeleteCmd = new OleDbCommand();
         }
 
-        private static OleDbParameter ParameterUF
+        private static OleDbParameter ParameterUF()
             {
-            get
+            return new OleDbParameter
             {
-                return ((_uf is null) ? (ParameterUF = new OleDbParameter()) : _uf);
+                ParameterName = p_uf,
+                OleDbType = OleDbType.VarChar,
+                Size = 2
+            };
             }
-            set
-            {
-                _uf = value;
-                _uf.ParameterName = "@uf";
-                _uf.OleDbType = OleDbType.VarChar;
-                _uf.Size = 2;
-            }
-        }
 
-        private static OleDbParameter ParameterNewUF
+        private static OleDbParameter ParameterNewUF()
         {
-            get
+            return new OleDbParameter
             {
-                return ((_new_uf is null) ? (ParameterNewUF = new OleDbParameter()) : _new_uf);
+                ParameterName = p_new_uf,
+                OleDbType = OleDbType.VarChar,
+                Size = 2
+            };
             }
-            set
-            {
-                _new_uf = value;
-                _new_uf.ParameterName = "@new_uf";
-                _new_uf.OleDbType = OleDbType.VarChar;
-                _new_uf.Size = 2;
-            }
-        }
 
-        private static OleDbParameter ParameterNome
+        private static OleDbParameter ParameterNome()
         {
-            get
+            return new OleDbParameter
             {
-                return (_nome is null) ? ParameterNome = new OleDbParameter() : _nome;
+                ParameterName = p_nome,
+                OleDbType = OleDbType.VarChar,
+                Size = 50
+            };
             }
-            set
-            {
-                _nome = value;
-                _nome.ParameterName = "@nome";
-                _nome.OleDbType = OleDbType.VarChar;
-                _nome.Size = 50;
-            }
-        }
 
         private static string ParameterUFValue
         {
