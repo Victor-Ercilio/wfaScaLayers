@@ -39,10 +39,85 @@ namespace Bll
 
         private static OleDbParameter ParameterUF
             {
-                ConOleDb db = new ConOleDb();
-                if(_selectAll == null)
+            get
+            {
+                return ((_uf is null) ? (ParameterUF = new OleDbParameter()) : _uf);
+            }
+            set
+            {
+                _uf = value;
+                _uf.ParameterName = "@uf";
+                _uf.OleDbType = OleDbType.VarChar;
+                _uf.Size = 2;
+            }
+        }
+
+        private static OleDbParameter ParameterNewUF
+        {
+            get
+            {
+                return ((_new_uf is null) ? (ParameterNewUF = new OleDbParameter()) : _new_uf);
+            }
+            set
+            {
+                _new_uf = value;
+                _new_uf.ParameterName = "@new_uf";
+                _new_uf.OleDbType = OleDbType.VarChar;
+                _new_uf.Size = 2;
+            }
+        }
+
+        private static OleDbParameter ParameterNome
+        {
+            get
+            {
+                return (_nome is null) ? ParameterNome = new OleDbParameter() : _nome;
+            }
+            set
+            {
+                _nome = value;
+                _nome.ParameterName = "@nome";
+                _nome.OleDbType = OleDbType.VarChar;
+                _nome.Size = 50;
+            }
+        }
+
+        private static string ParameterUFValue
+        {
+            get { return ParameterUF.Value.ToString(); }
+            set
+            {
+                ParameterUF.Value = $"'{value}'";
+            }
+        }
+
+        private static string ParameterNewUFValue
+        {
+            get { return ParameterNewUF.Value.ToString(); }
+            set
+            {
+                ParameterNewUF.Value = $"'{value}'";
+            }
+        }
+
+        private static string ParameterNomeValue
+        {
+            get { return ParameterNome.Value.ToString(); }
+            set
+            {
+                ParameterNome.Value = $"'{value}'";
+            }
+        }
+
+        private static OleDbCommand SelectAllCmd
+        {
+            get
+            {
+                return (_selectAll is null) ?  SelectAllCmd = new OleDbCommand() : _selectAll;
+            }
+            set
                 {
-                    _selectAll = new OleDbCommand();
+                _selectAll = value;
                     _selectAll.CommandText =
                         @"
                         SELECT  ufe_sig AS UF,
