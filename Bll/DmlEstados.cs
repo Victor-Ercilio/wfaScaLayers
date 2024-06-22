@@ -23,9 +23,21 @@ namespace Bll
         private static OleDbCommand _update;
         private static OleDbCommand _delete;
 
-        public DataTable All()
+        public DmlEstados()
         {
-            try
+            ParameterUF = new OleDbParameter();
+            ParameterNome = new OleDbParameter();
+
+            SelectAllCmd = new OleDbCommand();
+            _selectSome = _selectSome ?? new OleDbCommand();
+            _selectFirst = _selectFirst ?? new OleDbCommand();
+
+            AddCmd = new OleDbCommand();
+            UpdateCmd = new OleDbCommand();
+            DeleteCmd = new OleDbCommand();
+        }
+
+        private static OleDbParameter ParameterUF
             {
                 ConOleDb db = new ConOleDb();
                 if(_selectAll == null)
