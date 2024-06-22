@@ -94,14 +94,15 @@ namespace Bll
                 {
                 _selectAny = value;
                 _selectAny.CommandText =
-                    @"
+                        string.Format(@"
                     SELECT  ufe_sig AS UF,
                             ufe_nom AS Nome
                     FROM    estados
-                    WHERE ufe_sgl LIKE @uf AND ufe_nom LIKE @nome";
-                _selectAny.Parameters.Add(ParameterUF);
-                _selectAny.Parameters.Add(ParameterNome);
+                        WHERE ufe_sgl LIKE {0} AND ufe_nom LIKE {1}", p_uf, p_nome);
+                    _selectAny.Parameters.Add(ParameterUF());
+                    _selectAny.Parameters.Add(ParameterNome());
             }
+        }
         }
 
         private static OleDbCommand DeleteCmd
