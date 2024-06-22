@@ -246,7 +246,7 @@ namespace Bll
             }
         }
 
-        public string Nome(string uf)
+        public string NomeBy(string uf)
         {
             try
             {
