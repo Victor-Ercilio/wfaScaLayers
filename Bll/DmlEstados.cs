@@ -202,18 +202,9 @@ namespace Bll
             {
                 ConOleDb db = new ConOleDb();
 
-                if(_selectSome == null)
-                {
-                    _selectSome = new OleDbCommand();
-                    _selectSome.CommandText =
-                        @"
-                        SELECT  ufe_sig AS UF,
-                                ufe_nom AS Nome
-                        FROM    estados
-                        WHERE ufe_sgl LIKE @uf OR ufe_nom LIKE @nome";
-                    _selectSome.Parameters.Add("@uf", OleDbType.VarChar, 2);
-                    _selectSome.Parameters.Add("@nome", OleDbType.VarChar, 70);
-                }
+                ParameterUFValue = uf;
+                ParameterNomeValue = nome;
+                
                 _selectSome.Parameters["@uf"].Value = $"'{uf}%'";
                 _selectSome.Parameters["@nome"].Value = $"'%{nome}%'";
 
