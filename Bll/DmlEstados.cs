@@ -113,13 +113,16 @@ namespace Bll
             }
             set
             {
+                if(_delete is null)
+                {
                 _delete = value;
                 _delete.CommandText =
-                    @"
+                        string.Format(@"
                     DELETE FROM estados
-                    WHERE ufe_sgl = @uf";
-                _delete.Parameters.Add(ParameterUF);
+                        WHERE ufe_sgl = {0}", p_uf);
+                    _delete.Parameters.Add(ParameterUF());
             }
+        }
         }
 
         private static OleDbCommand CreateCmd
@@ -130,14 +133,17 @@ namespace Bll
             }
             set
             {
+                if(_create is null)
+                {
                 _create = value;
                 _create.CommandText =
-                    @"
+                        string.Format(@"
                     INSERT INTO estados (ufe_sig, ufe_nom)
-                    VALUES (@uf, @nome)";
-                _create.Parameters.Add(ParameterUF);
-                _create.Parameters.Add(ParameterNome);
+                        VALUES ({0}, {1})", p_uf, p_nome);
+                    _create.Parameters.Add(ParameterUF());
+                    _create.Parameters.Add(ParameterNome());
             }
+        }
         }
 
         private static OleDbCommand UpdateCmd
@@ -148,18 +154,21 @@ namespace Bll
             }
             set
             {
+                if(_update is null)
+                {
                 _update = value;
                 _update.CommandText =
-                     @"
+                         string.Format(@"
                         UPDATE estados
                         SET
-                            ufe_sig = @new_uf, ufe_nom = @nome
+                                ufe_sig = {0}, ufe_nom = {1}
                         WHERE
-                            ufe_sig = @uf";
-                _update.Parameters.Add(ParameterUF);
-                _update.Parameters.Add(ParameterNome);
-                _update.Parameters.Add(ParameterNewUF);
+                                ufe_sig = {1}", p_new_uf, p_nome, p_uf);
+                    _update.Parameters.Add(ParameterUF());
+                    _update.Parameters.Add(ParameterNome());
+                    _update.Parameters.Add(ParameterNewUF());
             }
+        }
         }
 
         public static DataTable All()
