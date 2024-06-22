@@ -222,43 +222,10 @@ namespace Bll
             {
                 ConOleDb db = new ConOleDb();
 
-                ParameterUFValue = uf;
-                ParameterNomeValue = nome;
+                ParameterUFValue = $"{uf}%";
+                ParameterNomeValue = $"%{nome}%";
                 
-                _selectSome.Parameters["@uf"].Value = $"'{uf}%'";
-                _selectSome.Parameters["@nome"].Value = $"'%{nome}%'";
-
-                return db.ReturnDataTable(_selectSome);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public DataTable SelectFirst(string uf = "", string nome = "")
-        {
-            try
-            {
-                ConOleDb db = new ConOleDb();
-
-                if (_selectFirst == null)
-                {
-                    _selectFirst = new OleDbCommand();
-                    _selectFirst.CommandText =
-                        @"
-                        SELECT  TOP 1
-                                ufe_sig AS UF,
-                                ufe_nom AS Nome
-                        FROM    estados
-                        WHERE ufe_sgl LIKE @uf AND ufe_nom LIKE @nome";
-                    _selectFirst.Parameters.Add("@uf", OleDbType.VarChar, 2);
-                    _selectFirst.Parameters.Add("@nome", OleDbType.VarChar, 50);
-                }
-                _selectFirst.Parameters["@uf"].Value = $"'{uf}%'";
-                _selectFirst.Parameters["@nome"].Value = $"'%{nome}%'";
-
-                return db.ReturnDataTable(_selectFirst);
+                return db.ReturnDataTable(SelectAnyCmd);
             }
             catch (Exception)
             {
