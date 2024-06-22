@@ -24,9 +24,6 @@ namespace Bll
 
         public DmlEstados()
         {
-            ParameterUF = new OleDbParameter();
-            ParameterNome = new OleDbParameter();
-
             SelectAllCmd = new OleDbCommand();
             SelectAnyCmd = new OleDbCommand();
 
