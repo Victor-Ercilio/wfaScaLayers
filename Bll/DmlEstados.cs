@@ -70,6 +70,8 @@ namespace Bll
             }
             set
                 {
+                if(_selectAll is null)
+                {
                 _selectAll = value;
                     _selectAll.CommandText =
                         @"
@@ -77,6 +79,7 @@ namespace Bll
                                 ufe_nom AS Nome
                         FROM    estados";
                 }
+        }
         }
 
         private static OleDbCommand SelectAnyCmd
@@ -87,6 +90,8 @@ namespace Bll
             }
             set
             {
+                if(_selectAny is null)
+                {
                 _selectAny = value;
                 _selectAny.CommandText =
                     @"
