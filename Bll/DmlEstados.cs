@@ -126,6 +126,26 @@ namespace Bll
                 }
         }
 
+        private static OleDbCommand SelectAnyCmd
+        {
+            get
+            {
+                return (_selectAny is null) ? SelectAnyCmd = new OleDbCommand() : _selectAny;
+            }
+            set
+            {
+                _selectAny = value;
+                _selectAny.CommandText =
+                    @"
+                    SELECT  ufe_sig AS UF,
+                            ufe_nom AS Nome
+                    FROM    estados
+                    WHERE ufe_sgl LIKE @uf AND ufe_nom LIKE @nome";
+                _selectAny.Parameters.Add(ParameterUF);
+                _selectAny.Parameters.Add(ParameterNome);
+            }
+        }
+
         private static OleDbCommand DeleteCmd
         {
             get
