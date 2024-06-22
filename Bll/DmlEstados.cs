@@ -281,19 +281,9 @@ namespace Bll
             {
                 ConOleDb db = new ConOleDb();
 
-                if (_delete == null)
-                {
-                    _delete = new OleDbCommand();
-                    _delete.CommandText =
-                        @"
-                            DELETE FROM estados 
-                            WHERE ufe_sig = @uf";
-                    _delete.Parameters.Add("@uf", OleDbType.VarChar, 2);
-                }
+                ParameterUFValue = estado.Sigla;
 
-                _delete.Parameters["@uf"].Value = $"'{estado.Sigla}'";
-
-                db.ExecuteNQ(_delete);
+                db.ExecuteNQ(DeleteCmd);
             }
             catch (Exception)
             {
