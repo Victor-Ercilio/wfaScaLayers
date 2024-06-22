@@ -62,33 +62,6 @@ namespace Bll
             };
             }
 
-        private static string ParameterUFValue
-        {
-            get { return ParameterUF.Value.ToString(); }
-            set
-            {
-                ParameterUF.Value = $"'{value}'";
-            }
-        }
-
-        private static string ParameterNewUFValue
-        {
-            get { return ParameterNewUF.Value.ToString(); }
-            set
-            {
-                ParameterNewUF.Value = $"'{value}'";
-            }
-        }
-
-        private static string ParameterNomeValue
-        {
-            get { return ParameterNome.Value.ToString(); }
-            set
-            {
-                ParameterNome.Value = $"'{value}'";
-            }
-        }
-
         private static OleDbCommand SelectAllCmd
         {
             get
