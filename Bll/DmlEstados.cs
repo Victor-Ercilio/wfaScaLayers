@@ -32,7 +32,7 @@ namespace Bll
             _selectSome = _selectSome ?? new OleDbCommand();
             _selectFirst = _selectFirst ?? new OleDbCommand();
 
-            AddCmd = new OleDbCommand();
+            CreateCmd = new OleDbCommand();
             UpdateCmd = new OleDbCommand();
             DeleteCmd = new OleDbCommand();
         }
@@ -143,11 +143,11 @@ namespace Bll
             }
         }
 
-        private static OleDbCommand AddCmd
+        private static OleDbCommand CreateCmd
         {
             get
             {
-                return (_create is null) ? AddCmd = new OleDbCommand() : _create;
+                return (_create is null) ? CreateCmd = new OleDbCommand() : _create;
             }
             set
             {
