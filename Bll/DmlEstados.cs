@@ -297,26 +297,11 @@ namespace Bll
             {
                 ConOleDb db = new ConOleDb();
 
-                if (_update == null)
-                {
-                    _update = new OleDbCommand();
-                    _update.CommandText =
-                        @"
-                            UPDATE estados
-                            SET
-                                ufe_sig = @new_uf, ufe_nom = @nome
-                            WHERE
-                                ufe_sig = @old_uf";
-                    _update.Parameters.Add("@old_uf", OleDbType.VarChar, 2);
-                    _update.Parameters.Add("@new_uf", OleDbType.VarChar, 2);
-                    _update.Parameters.Add("@nome", OleDbType.VarChar, 50);
-                }
+                ParameterUFValue = old_uf.Sigla;
+                ParameterNewUFValue = new_uf.Sigla;
+                ParameterNomeValue = new_uf.Nome;
 
-                _update.Parameters["@old_uf"].Value = $"'{uf}'";
-                _update.Parameters["@new_uf"].Value = $"'{estado.Sigla}'";
-                _update.Parameters["@nome"].Value = $"'{estado.Nome}'";
-
-                db.ExecuteNQ(_update);
+                db.ExecuteNQ(UpdateCmd);
             }
             catch (Exception)
             {
