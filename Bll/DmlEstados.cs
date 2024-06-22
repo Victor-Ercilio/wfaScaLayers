@@ -171,7 +171,7 @@ namespace Bll
         }
         }
 
-        public static DataTable All()
+        public DataTable All()
         {
             try
             {
@@ -201,7 +201,7 @@ namespace Bll
             }
         }
 
-        public static void Add(Estado estado)
+        public void Add(Estado estado)
         {
             try
             {
@@ -218,7 +218,7 @@ namespace Bll
             }
         }
 
-        public static void Del(Estado estado)
+        public void Del(Estado estado)
         {
             try
             {
@@ -234,7 +234,7 @@ namespace Bll
             }
         }
 
-        public static void Update(Estado old_uf, Estado new_uf)
+        public void Update(Estado old_uf, Estado new_uf)
         {
             try
             {
@@ -252,5 +252,6 @@ namespace Bll
             }
         }
 
+        
     }
 }
