@@ -149,12 +149,7 @@ namespace Bll
                 return false;
         }
 
-        public static bool IsStringEmpty(string s)
-        {
-            return string.IsNullOrEmpty(s.Trim());
-        }
-
-        public static bool IsLengthInMinMax(string s, int min, int max)
+        private static bool IsLengthInMinMax(string s, int min, int max)
         {
             return (s.Length >= min && s.Length <= max);
         }

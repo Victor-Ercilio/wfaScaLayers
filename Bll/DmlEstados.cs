@@ -33,14 +33,14 @@ namespace Bll
         }
 
         private static OleDbParameter ParameterUF()
-        {
+            {
             return new OleDbParameter
             {
                 ParameterName = p_uf,
                 OleDbType = OleDbType.VarChar,
                 Size = 2
             };
-        }
+            }
 
         private static OleDbParameter ParameterNewUF()
         {
@@ -50,7 +50,7 @@ namespace Bll
                 OleDbType = OleDbType.VarChar,
                 Size = 2
             };
-        }
+            }
 
         private static OleDbParameter ParameterNome()
         {
@@ -60,7 +60,7 @@ namespace Bll
                 OleDbType = OleDbType.VarChar,
                 Size = 50
             };
-        }
+            }
 
         private static OleDbCommand SelectAllCmd
         {
@@ -69,17 +69,17 @@ namespace Bll
                 return (_selectAll is null) ?  SelectAllCmd = new OleDbCommand() : _selectAll;
             }
             set
-            {
+                {
                 if(_selectAll is null)
                 {
-                    _selectAll = value;
+                _selectAll = value;
                     _selectAll.CommandText =
                         @"
                         SELECT  ufe_sig AS UF,
                                 ufe_nom AS Nome
                         FROM    estados";
                 }
-            }
+        }
         }
 
         private static OleDbCommand SelectAnyCmd
@@ -92,17 +92,17 @@ namespace Bll
             {
                 if(_selectAny is null)
                 {
-                    _selectAny = value;
-                    _selectAny.CommandText =
+                _selectAny = value;
+                _selectAny.CommandText =
                         string.Format(@"
-                        SELECT  ufe_sig AS UF,
-                                ufe_nom AS Nome
-                        FROM    estados
-                        WHERE ufe_sig LIKE {0} AND ufe_nom LIKE {1}", p_uf, p_nome);
+                    SELECT  ufe_sig AS UF,
+                            ufe_nom AS Nome
+                    FROM    estados
+                        WHERE ufe_sgl LIKE {0} AND ufe_nom LIKE {1}", p_uf, p_nome);
                     _selectAny.Parameters.Add(ParameterUF());
                     _selectAny.Parameters.Add(ParameterNome());
-                }
             }
+        }
         }
 
         private static OleDbCommand DeleteCmd
@@ -115,14 +115,14 @@ namespace Bll
             {
                 if(_delete is null)
                 {
-                    _delete = value;
-                    _delete.CommandText =
+                _delete = value;
+                _delete.CommandText =
                         string.Format(@"
-                        DELETE FROM estados
-                        WHERE ufe_sig = {0}", p_uf);
+                    DELETE FROM estados
+                        WHERE ufe_sgl = {0}", p_uf);
                     _delete.Parameters.Add(ParameterUF());
-                }
             }
+        }
         }
 
         private static OleDbCommand CreateCmd
@@ -135,15 +135,15 @@ namespace Bll
             {
                 if(_create is null)
                 {
-                    _create = value;
-                    _create.CommandText =
+                _create = value;
+                _create.CommandText =
                         string.Format(@"
-                        INSERT INTO estados (ufe_sig, ufe_nom)
+                    INSERT INTO estados (ufe_sig, ufe_nom)
                         VALUES ({0}, {1})", p_uf, p_nome);
                     _create.Parameters.Add(ParameterUF());
                     _create.Parameters.Add(ParameterNome());
-                }
             }
+        }
         }
 
         private static OleDbCommand UpdateCmd
@@ -156,19 +156,19 @@ namespace Bll
             {
                 if(_update is null)
                 {
-                    _update = value;
-                    _update.CommandText =
+                _update = value;
+                _update.CommandText =
                          string.Format(@"
-                            UPDATE estados
-                            SET
+                        UPDATE estados
+                        SET
                                 ufe_sig = {0}, ufe_nom = {1}
-                            WHERE
+                        WHERE
                                 ufe_sig = {1}", p_new_uf, p_nome, p_uf);
                     _update.Parameters.Add(ParameterUF());
                     _update.Parameters.Add(ParameterNome());
                     _update.Parameters.Add(ParameterNewUF());
-                }
             }
+        }
         }
 
         public DataTable All()
@@ -192,7 +192,7 @@ namespace Bll
 
                 SelectAnyCmd.Parameters[p_uf].Value = $"'{uf}%'";
                 SelectAnyCmd.Parameters[p_nome].Value = $"'%{nome}%'";
-
+                
                 return db.ReturnDataTable(SelectAnyCmd);
             }
             catch (Exception)
@@ -209,7 +209,7 @@ namespace Bll
 
                 CreateCmd.Parameters[p_uf].Value = $"'{estado.Sigla}'";
                 CreateCmd.Parameters[p_nome].Value = $"'{estado.Nome}'";
-                
+
                 db.ExecuteNQ(CreateCmd);
             }
             catch (Exception)

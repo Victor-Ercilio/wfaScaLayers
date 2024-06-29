@@ -16,22 +16,26 @@ namespace Bll
 {
     public class CamadaNegocios
     {
-        private DmlEstados _estados;
         private CamadaNegocios _instance;
 
         private static OleDbCommand _todosEstados;
+        /*
+        private CamadaNegocios() { }
 
-        public DmlEstados Estados
+        private CamadaNegocios Instance
         {
             get
             {
-                return ((_estados is null) ? Estados = new DmlEstados() : _estados);
-            }
-            private set
-            {
-                _estados = value;
+                if (_instance == null)
+                    _instance = new CamadaNegocios();
+                return _instance;
             }
         }
+        
+        public CamadaNegocios GetInstance() 
+        {
+            return this.Instance;
+        }*/
 
         #region Alunos
         public DataTable ObtemAlunos()
