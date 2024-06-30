@@ -12,6 +12,12 @@ namespace Bll
         private string _sigla;
         private string _nome;
 
+        public static readonly int NomeMaxLength = 50;
+        public static readonly int NomeMinLength = 3;
+
+        public static readonly int SiglaMaxLength = 2;
+        public static readonly int SiglaMinLength = 1;
+
         private static readonly string _reIsNome = @"^[a-zàáâãäòóôõöìíîïùúûüèéêë][a-zàáâãäòóôõöìíîïùúûüèéêë]{2,}[a-zàáâãäòóôõöìíîïùúûüèéêë\s]*";
         private static readonly string _reIsNotNome = @"[\d]+|[^a-zàáâãäòóôõöìíîïùúûüèéêë\s]+|^\s+$";
         
