@@ -65,10 +65,10 @@ namespace Bll
                     return value;
                 else if (Valida.IsStringEmpty(value))
                     throw new InvalidNameException("Nome do Estado é obrigatório!");
-                else if (!Valida.IsLengthInMinMax(value, 3, 50))
-                    throw new InvalidNameException("Nome do Estado é obrigatório. Min 3 caracteres e máximo 50.");
+                else if (!Valida.IsLengthInMinMax(value, NomeMinLength, NomeMaxLength))
+                    throw new InvalidNameException($"Nome do Estado é obrigatório. Min {NomeMinLength} caracteres e máximo {NomeMaxLength}.");
                 else
-                    throw new InvalidNameException("Nome do Estado deve conter letras (min. 3) e espaços");
+                    throw new InvalidNameException($"Nome do Estado deve conter letras (min. {NomeMinLength}) e espaços");
             }
             catch (InvalidNameException) { throw; }
         }
@@ -83,6 +83,8 @@ namespace Bll
                     return value;
                 else if (Valida.IsStringEmpty(value))
                     throw new InvalidSiglaException("Sigla do Estado é obrigatória!");
+                else if (Valida.IsLengthInMinMax(value, SiglaMinLength, SiglaMaxLength))
+                    throw new InvalidSiglaException($"Sigla é obrigatória, min. {SiglaMinLength} caracteres e max. {SiglaMaxLength}");
                 else
                     throw new InvalidSiglaException("Sigla deve conter apenas letras maiúsculas sem espaços");
             }
