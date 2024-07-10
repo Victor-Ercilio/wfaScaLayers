@@ -98,8 +98,7 @@ namespace Bll
                         SELECT  ufe_sig AS UF,
                                 ufe_nom AS Nome
                         FROM    estados
-                        WHERE ufe_sig LIKE {0} AND ufe_nom LIKE {1}", p_uf, p_nome);
-                    _selectAny.Parameters.Add(ParameterUF());
+                        WHERE  ufe_nom LIKE {0}", p_nome);
                     _selectAny.Parameters.Add(ParameterNome());
                 }
             }
