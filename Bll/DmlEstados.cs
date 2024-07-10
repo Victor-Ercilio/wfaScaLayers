@@ -183,13 +183,12 @@ namespace Bll
             }
         }
 
-        public DataTable SelectAnyWith(string uf = "", string nome= "")
+        public DataTable SelectAnyWith(string nome)
         {
             try
             {
                 ConOleDb db = new ConOleDb();
 
-                SelectAnyCmd.Parameters[p_uf].Value = $"'{uf}%'";
                 SelectAnyCmd.Parameters[p_nome].Value = $"'%{nome}%'";
 
                 return db.ReturnDataTable(SelectAnyCmd);
