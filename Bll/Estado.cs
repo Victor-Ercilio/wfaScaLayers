@@ -18,12 +18,6 @@ namespace Bll
         public static readonly int SiglaMaxLength = 2;
         public static readonly int SiglaMinLength = 1;
 
-        private static readonly string _reIsNome = @"^[a-zàáâãäòóôõöìíîïùúûüèéêë][a-zàáâãäòóôõöìíîïùúûüèéêë]{2,}[a-zàáâãäòóôõöìíîïùúûüèéêë\s]*";
-        private static readonly string _reIsNotNome = @"[\d]+|[^a-zàáâãäòóôõöìíîïùúûüèéêë\s]+|^\s+$";
-        
-        private static readonly string _reIsSigla = @"^[a-z][a-z]{1,}$";
-        private static readonly string _reIsNotSigla = @"^[^a-z]+$|\s+|\d+|^[a-z]{1}$";
-
         public Estado(string sigla, string nome)
         {
             Sigla = sigla;
@@ -51,7 +45,7 @@ namespace Bll
                 {
                     _nome = ParseNome(value);
                 }
-                catch(Exception) { throw; }
+                catch (Exception) { throw; }
             }
         }
 
@@ -59,16 +53,25 @@ namespace Bll
         {
             try
             {
-                value = value.Trim();
-                if (Regex.IsMatch(value, _reIsNome, RegexOptions.IgnoreCase) && 
-                    !Regex.IsMatch(value, _reIsNotNome, RegexOptions.IgnoreCase))
-                    return value;
-                else if (Valida.IsStringEmpty(value))
+                string _reIsNome = @"^[a-zàáâãäòóôõöìíîïùúûüèéêë][a-zàáâãäòóôõöìíîïùúûüèéêë]{2,}[a-zàáâãäòóôõöìíîïùúûüèéêë\s]*";
+                string _reIsNotNome = @"[\d]+|[^a-zàáâãäòóôõöìíîïùúûüèéêë\s]+|^\s+$";
+
+                if (Valida.IsStringEmpty(value))
+                {
                     throw new InvalidNameException("Nome do Estado é obrigatório!");
-                else if (!Valida.IsLengthInMinMax(value, NomeMinLength, NomeMaxLength))
-                    throw new InvalidNameException($"Nome do Estado é obrigatório. Min {NomeMinLength} caracteres e máximo {NomeMaxLength}.");
+                }
+                else if (Regex.IsMatch(value, _reIsNome, RegexOptions.IgnoreCase) &&
+                    !Regex.IsMatch(value, _reIsNotNome, RegexOptions.IgnoreCase))
+                {
+                    if (!Valida.IsLengthInMinMax(value, NomeMinLength, NomeMaxLength))
+                        throw new InvalidNameException($"Nome do Estado é obrigatório. Min {NomeMinLength} caracteres e máximo {NomeMaxLength}.");
+                    else
+                    return value;
+                }
                 else
+                {
                     throw new InvalidNameException($"Nome do Estado deve conter letras (min. {NomeMinLength}) e espaços");
+            }
             }
             catch (InvalidNameException) { throw; }
         }
@@ -77,16 +80,25 @@ namespace Bll
         {
             try
             {
-                value = value.Trim();
+                string _reIsSigla = @"^[a-z][a-z]{1,}$";
+                string _reIsNotSigla = @"^[^a-z]+$|\s+|\d+|^[a-z]{1}$";
+
+                if (!Valida.IsStringEmpty(value))
+                {
                 if (Regex.IsMatch(value, _reIsSigla, RegexOptions.IgnoreCase) && 
                     !Regex.IsMatch(value, _reIsNotSigla, RegexOptions.IgnoreCase))
-                    return value;
-                else if (Valida.IsStringEmpty(value))
-                    throw new InvalidSiglaException("Sigla do Estado é obrigatória!");
-                else if (Valida.IsLengthInMinMax(value, SiglaMinLength, SiglaMaxLength))
-                    throw new InvalidSiglaException($"Sigla é obrigatória, min. {SiglaMinLength} caracteres e max. {SiglaMaxLength}");
+                    {
+                        return Valida.IsLengthInMinMax(value, SiglaMinLength, SiglaMaxLength)
+                            ? throw new InvalidSiglaException($"Sigla é obrigatória, min. {SiglaMinLength} caracteres e max. {SiglaMaxLength}")
+                            : value;
+                    }
                 else
                     throw new InvalidSiglaException("Sigla deve conter apenas letras maiúsculas sem espaços");
+            }
+                else
+                {
+                    throw new InvalidSiglaException("Sigla do Estado é obrigatória!");
+                }
             }
             catch (InvalidSiglaException) { throw; }
         }
