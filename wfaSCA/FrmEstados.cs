@@ -39,7 +39,7 @@ namespace wfaSCA
         {
             string uf = txtUFSigla.Text;
             string nome = txtUFConsNome.Text;
-            dgvUF.DataSource = Cn.Estados.SelectAnyWith(uf, nome);
+            dgvUF.DataSource = Cn.Estados.SelectAnyWith(nome);
         }
         #endregion
 
