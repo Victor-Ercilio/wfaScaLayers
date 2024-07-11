@@ -176,7 +176,9 @@ namespace wfaSCA
         {
             try
             {
-                string n = Estado.ParseNome(txtUFNome.Text);
+                Estado estado = new Estado();
+                estado.Nome.Parse(txtUFNome.Text);
+                //string n = Estado.ParseNome(txtUFNome.Text);
             }
             catch(InvalidNameException ex)
             {
