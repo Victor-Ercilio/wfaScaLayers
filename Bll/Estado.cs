@@ -20,18 +20,17 @@ namespace Bll
         private static readonly string SiglaRegex_ItIsNot = @"^[^a-z]+$|\s+|\d+|^[a-z]{1}$";
 
         private string _sigla;
-        private string _nome;
+        private Nome _nome;
 
-        public static readonly int NomeMaxLength = 50;
-        public static readonly int NomeMinLength = 3;
-
-        public static readonly int SiglaMaxLength = 2;
-        public static readonly int SiglaMinLength = 1;
+        public Estado() 
+        {
+            Nome = new Nome(NomeMinLength, NomeMaxLength, NomeRegex_ItIs, NomeRegex_ItIsNot, true);
+        }
 
         public Estado(string sigla, string nome)
         {
             Sigla = sigla;
-            Nome = nome;
+            Nome = new Nome(nome, NomeMinLength, NomeMaxLength, NomeRegex_ItIs,NomeRegex_ItIsNot , true);
         }
 
         public string Sigla
@@ -46,14 +45,31 @@ namespace Bll
                 catch (Exception) { throw; }
             }
         }
-        public string Nome
+
+        public Nome Nome
         {
             get { return _nome; }
-            set
+            private set
             {
                 try
                 {
-                    _nome = ParseNome(value);
+                    _nome = value;
+                }
+                catch (ArgumentNullException ex)
+                { 
+                    throw new InvalidNameException("Nome é obrigaório.");
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    throw new InvalidNameException(
+                        $"Nome do Estado é obrigatório. " +
+                        $"Min {NomeMinLength} caracteres e no máximo {NomeMaxLength}.");
+                }
+                catch (InvalidNameException)
+                {
+                    throw new InvalidNameException(
+                        $"Nome do Estado deve conter somente letras (min. " +
+                        $"{NomeMinLength} e no max. {NomeMaxLength}) e espaços");
                 }
                 catch (Exception) { throw; }
             }
