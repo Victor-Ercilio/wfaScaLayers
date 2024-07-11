@@ -9,6 +9,16 @@ namespace Bll
 {
     public class Estado
     {
+        private static readonly int NomeMaxLength = 50;
+        private static readonly int NomeMinLength = 3;
+        private static readonly int SiglaMaxLength = 2;
+        private static readonly int SiglaMinLength = 1;
+        private static readonly string NomeRegex_ItIs = 
+            @"^[a-zàáâãäòóôõöìíîïùúûüèéêë][a-zàáâãäòóôõöìíîïùúûüèéêë]{2,}[a-zàáâãäòóôõöìíîïùúûüèéêë\s]*";
+        private static readonly string NomeRegex_ItIsNot = @"[\d]+|[^a-zàáâãäòóôõöìíîïùúûüèéêë\s]+|^\s+$";
+        private static readonly string SiglaRegex_ItIs = @"^[a-z][a-z]{1,}$";
+        private static readonly string SiglaRegex_ItIsNot = @"^[^a-z]+$|\s+|\d+|^[a-z]{1}$";
+
         private string _sigla;
         private string _nome;
 
