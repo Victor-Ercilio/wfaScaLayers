@@ -20,28 +20,29 @@ namespace Bll
         private static readonly string SiglaRegex_ItIs = @"^[a-z][a-z]{1,}$";
         private static readonly string SiglaRegex_ItIsNot = @"^[^a-z]+$|\s+|\d+|^[a-z]{1}$";
 
-        private string _sigla;
+        private Sigla _sigla;
         private Nome _nome;
 
         public Estado() 
         {
+            Sigla = new Sigla(SiglaMinLength, SiglaMaxLength, SiglaRegex_ItIs, SiglaRegex_ItIsNot, true);
             Nome = new Nome(NomeMinLength, NomeMaxLength, NomeRegex_ItIs, NomeRegex_ItIsNot, true);
         }
 
         public Estado(string sigla, string nome)
         {
-            Sigla = sigla;
+            Sigla = new Sigla(sigla, SiglaMinLength, SiglaMaxLength, SiglaRegex_ItIs, SiglaRegex_ItIsNot, true);
             Nome = new Nome(nome, NomeMinLength, NomeMaxLength, NomeRegex_ItIs,NomeRegex_ItIsNot , true);
         }
 
-        public string Sigla
+        public Sigla Sigla
         {
             get { return _sigla; }
             set
             {
                 try
                 {
-                    _sigla = ParseSigla(value);
+                    _sigla = value;
                 }
                 catch (Exception) { throw; }
             }

@@ -15,6 +15,7 @@ namespace wfaSCA
 {
     public partial class FrmEstados : Form
     {
+        private Estado estado;
         private StatusLabel Status;
         private CamadaNegocios Cn;
         
@@ -25,6 +26,7 @@ namespace wfaSCA
         private void FrmEstados_Load(object sender, EventArgs e)
         {
             Cn = new CamadaNegocios();
+            estado = new Estado(); 
             dgvUF.DataSource = Cn.Estados.All();
             SetStatus();
         }
@@ -176,11 +178,23 @@ namespace wfaSCA
         {
             try
             {
-                Estado estado = new Estado();
                 estado.Nome.Parse(txtUFNome.Text);
                 //string n = Estado.ParseNome(txtUFNome.Text);
             }
-            catch(InvalidNameException ex)
+            catch (ArgumentNullException)
+            {
+                string message = "O nome é obrigatório";
+                EPUF.SetError(txtUFNome, message);
+                Status.Set(message, StatusType.ERROR);
+                e.Cancel = true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                EPUF.SetError(txtUFNome, ex.Message);
+                Status.Set(ex.Message, StatusType.ERROR);
+                e.Cancel = true;
+            }
+            catch (InvalidNameException ex)
             {
                 EPUF.SetError(txtUFNome, ex.Message);
                 Status.Set(ex.Message, StatusType.ERROR);
@@ -209,7 +223,8 @@ namespace wfaSCA
         {
             try
             {
-                string n = Estado.ParseSigla(txtUFSigla.Text);
+                //string n = Estado.ParseSigla(txtUFSigla.Text);
+                estado.Sigla.Parse(txtUFSigla.Text);
             }
             catch (InvalidSiglaException ex)
             {

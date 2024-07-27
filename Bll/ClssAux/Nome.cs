@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Linq.Expressions;
 
 namespace Bll.ClssAux
 {
@@ -86,7 +87,14 @@ namespace Bll.ClssAux
             get { return _nome; }
             set
             {
-                _nome = Parse(value);
+                try
+                {
+                    _nome = Parse(value);
+                }
+                catch (ArgumentNullException) { throw; }
+                catch (ArgumentOutOfRangeException) { throw; }
+                catch (InvalidNameException) { throw; }
+                catch (Exception) { throw; }
             }
         }
         public int MinLenght { get; set; } = 0;
@@ -97,34 +105,40 @@ namespace Bll.ClssAux
 
         public string Parse(string nome)
         {
-
-            if(nome is null)
+            try
             {
-                throw new ArgumentNullException();
-            }
-            else if(nome.Length < MinLenght || nome.Length > MaxLenght)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-            else if(ExpOfWhatIs != "")
-            {
-                if(IgnoreCase)
+                if(nome is null)
                 {
-                    if (!Regex.IsMatch(nome, ExpOfWhatIs, RegexOptions.IgnoreCase) ||
-                        Regex.IsMatch(nome, ExpOfWhatIsNot, RegexOptions.IgnoreCase))
+                    throw new ArgumentNullException();
+                }
+                else if(nome.Length < MinLenght || nome.Length > MaxLenght)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else if(ExpOfWhatIs != "")
+                {
+                    if(IgnoreCase)
                     {
-                        throw new InvalidNameException();
+                        if (!Regex.IsMatch(nome, ExpOfWhatIs, RegexOptions.IgnoreCase) ||
+                            Regex.IsMatch(nome, ExpOfWhatIsNot, RegexOptions.IgnoreCase))
+                        {
+                            throw new InvalidNameException();
+                        }
+                    }
+                    else
+                    {
+                        if (!Regex.IsMatch(nome, ExpOfWhatIs) || Regex.IsMatch(nome, ExpOfWhatIsNot))
+                        {
+                            throw new InvalidNameException();
+                        }
                     }
                 }
-                else
-                {
-                    if (!Regex.IsMatch(nome, ExpOfWhatIs) || Regex.IsMatch(nome, ExpOfWhatIsNot))
-                    {
-                        throw new InvalidNameException();
-                    }
-                }
+                return nome;
             }
-            return nome;
+            catch(ArgumentNullException) { throw; }
+            catch(ArgumentOutOfRangeException) { throw; }
+            catch(InvalidNameException) { throw; }
+            catch (Exception) { throw; }
         }
     }
 }
